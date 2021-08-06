@@ -18,17 +18,14 @@ module.exports={
     // add new rdv
     addRdv: async (req, res) => {
       const date = req.body.date
-      const titre = req.body.titre
-      const texte = req.body.texte
-      const auteur= req.body.auteur
+      const message = req.body.message
+      
 
     
       try {
         rdv = new RDV({
           date,
-          titre,
-          texte,
-          auteur
+          message
         });
         await rdv.save();
         res.json(rdv);

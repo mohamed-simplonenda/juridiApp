@@ -6,15 +6,7 @@ const rdvSchema=new Schema({
         type:String,
         required:true
     },
-    titre:{
-        type:String,
-        required:true
-    },
-    texte:{
-        type:String,
-        required:true
-    },
-    auteur:{
+    message:{
         type:String,
         required:true
     }
