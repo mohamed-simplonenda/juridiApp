@@ -14,9 +14,21 @@ module.exports={
         res.status(500).send("server error");
       }
     },
+        //get one publication
+        getPublicationById:async(req,res)=>{
+          try {
+            const publication = await PUBLICATION.findById(req.params.id);
+            res.json(publication);
+        }
+        catch (error) {
+            console.error(error.message);
+            res.status(500).send("server error");
+          }
+        },
 
     // add new publication
     addPublication: async (req, res) => {
+      const image = req.body.image
       const date = req.body.date
       const titre = req.body.titre
       const texte = req.body.texte
@@ -25,6 +37,7 @@ module.exports={
     
       try {
         publication = new PUBLICATION({
+          image,
           date,
           titre,
           texte,

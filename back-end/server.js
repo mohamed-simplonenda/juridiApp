@@ -17,12 +17,29 @@ app.use(express.json())
 
 const publication = require('./Publications/route')
 const rdv = require('./Rendez-vous/route')
-const users = require('./users/route')
+
 
 app.use('/app/publication',publication)
 app.use('/app/rendez-vous',rdv)
-app.use('/app/users',users)
 
+
+// run user
+const user = require('./auth/user/userRoute');
+app.use("/app/user", user);
+
+
+
+
+
+
+
+// run admin
+const admin = require('./auth/admin/adminRoute');
+app.use("/app/admin", admin);
+
+// run expert
+const expert = require('./auth/expert/expertRoute');
+app.use("/app/expert", expert);
 
 //  Config server
 app.listen(PORT,(err)=>{
