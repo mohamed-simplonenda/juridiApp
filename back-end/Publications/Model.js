@@ -21,6 +21,16 @@ const publicationSchema=new Schema({
         type:String,
         
     }
+    ,
+    imageExpert:{
+        type:String,
+        
+    }
+    ,
+    description:{
+        type:String,
+        
+    }
     
 },
 { timestamps: true })

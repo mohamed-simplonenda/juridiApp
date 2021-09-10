@@ -17,10 +17,12 @@ app.use(express.json())
 
 const publication = require('./Publications/route')
 const rdv = require('./Rendez-vous/route')
+const contact = require('./contact/route')
 
 
 app.use('/app/publication',publication)
 app.use('/app/rendez-vous',rdv)
+app.use('/app/contact',contact)
 
 
 // run user

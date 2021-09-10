@@ -33,6 +33,8 @@ module.exports={
       const titre = req.body.titre
       const texte = req.body.texte
       const auteur= req.body.auteur
+      const imageExpert= req.body.imageExpert
+      const description= req.body.description
 
     
       try {
@@ -41,7 +43,9 @@ module.exports={
           date,
           titre,
           texte,
-          auteur
+          auteur,
+          imageExpert,
+          description
         });
         await publication.save();
         res.json(publication);

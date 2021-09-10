@@ -5,6 +5,7 @@ const  expert = require('./expertController')
 
 
 router.get('/getExpert',expert.getExpert)
+router.get('/getExpertById/:id',expert.getExpertById)
 router.put('/:id/updateExpert',expert.updateExpert)
 
 

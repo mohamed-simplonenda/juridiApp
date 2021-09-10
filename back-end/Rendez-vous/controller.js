@@ -15,17 +15,41 @@ module.exports={
       }
     },
 
+
+        //get one rdv
+        getRdvById:async(req,res)=>{
+          try {
+            const rdv = await RDV.findById(req.params.id);
+            res.json(rdv);
+        }
+        catch (error) {
+            console.error(error.message);
+            res.status(500).send("server error");
+          }
+        },
+
+
     // add new rdv
     addRdv: async (req, res) => {
       const date = req.body.date
-      const message = req.body.message
+      const heure = req.body.heure
+      const idExpert = req.body.idExpert 
+      const NomExpert = req.body.NomExpert 
+      const idUser = req.body.idUser 
+      const NomUser = req.body.NomUser
+      const status = req.body.status 
       
 
     
       try {
         rdv = new RDV({
           date,
-          message
+          heure,
+          idExpert,
+          NomExpert,
+          idUser,
+          NomUser,
+          status
         });
         await rdv.save();
         res.json(rdv);

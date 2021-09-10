@@ -86,6 +86,18 @@ const jwt = require('jsonwebtoken');
           res.status(500).send("server error");
         }
       },
+              //get one expert
+              getExpertById:async(req,res)=>{
+                try {
+                  const expert = await EXPERT.findById(req.params.id);
+                  res.json(expert);
+              }
+              catch (error) {
+                  console.error(error.message);
+                  res.status(500).send("server error");
+                }
+              },
+      
 
 
          //update expert
