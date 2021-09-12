@@ -70,38 +70,38 @@ const jwt = require('jsonwebtoken');
         });
 
     },
-    signIn:async(req,res)=>{
-        USER.findOne({email:req.body.email})
-        .exec((error,user)=>{
-            if(error){
-                return res.status(400).json({error}) }
-                if(user){
-                const comp= bcrypt.compare(req.body.password, user.password   )
-                if(comp)
-                {
-                        const token = jwt.sign({_id:user._id,role:user.role},'MEARNSECRET',{expiresIn:'1h'})
-                        const {_id, image,fullName,email,phone,specialité,description,status,role} = user
+    // signIn:async(req,res)=>{
+    //     USER.findOne({email:req.body.email})
+    //     .exec((error,user)=>{
+    //         if(error){
+    //             return res.status(400).json({error}) }
+    //             if(user){
+    //             const comp= bcrypt.compare(req.body.password, user.password   )
+    //             if(comp)
+    //             {
+    //                     const token = jwt.sign({_id:user._id,role:user.role},'MEARNSECRET',{expiresIn:'1h'})
+    //                     const {_id, image,fullName,email,phone,specialité,description,status,role} = user
                         
-                        res.status(200).json({
+    //                     res.status(200).json({
                            
-                            token,
-                            user:{
-                                _id,image,fullName,email,phone,specialité,description,status,role
-                            }
+    //                         token,
+    //                         user:{
+    //                             _id,image,fullName,email,phone,specialité,description,status,role
+    //                         }
                                           
-                        })
-                    }else{
-                        return res.status(400).json({
-                            message:'Invalid Password'
-                        })
-                    }
+    //                     })
+    //                 }else{
+    //                     return res.status(400).json({
+    //                         message:'Invalid Password'
+    //                     })
+    //                 }
 
-                }else{
-                    return res.status(400).json({message:'SomeThing went wrong !'})
-                }
+    //             }else{
+    //                 return res.status(400).json({message:'SomeThing went wrong !'})
+    //             }
         
-        })
-    } ,
+    //     })
+    // } ,
 
     // signIn : (req, res) => {
     //     USER.findOne({ email: req.body.email }).exec(async (error, user) => {
@@ -121,29 +121,53 @@ const jwt = require('jsonwebtoken');
     //       } else {
     //         return res.status(400).json({ message: "Something went wrong" });
     //       }  ,
-          //delete user
-          deleteUser:async(req,res)=>{
-            try{
-              const user = await USER.findByIdAndDelete(req.params.id)
-            res.json(user)
-            } catch (error) {
-              console.error(error.message);
-              res.status(500).send("server error");
+
+    signIn : (req, res) => {
+        USER.findOne({ email: req.body.email }).exec(async (error, user) => {
+          if (error) return res.status(400).json({ error });
+          if (user) {
+           const isPass = bcrypt.compare( user.password , req.body.password )
+            if (isPass) {
+              const token =  jwt.sign({_id:user._id,image:user.image,fullName:user.fullName,email:user.email,phone:user.phone,specialité:user.specialité,description:user.description,role:user.role},'MEARNSECRET',{expiresIn:'1h'})
+               res.status(200).json({
+                token 
+              });
+            } else {
+              return res.status(400).json({
+                message: "Invalid password !",
+              });
             }
-        },
-                //update expert
-                updateUser:async(req,res)=>{
-                    try {
-                      const user = await USER.findByIdAndUpdate(
-                        req.params.id,
-                        req.body,
-                        { new: true }
-                      );
-                      res.json(user);
-                    } catch (error) {
-                      console.error(error.message);
-                    }
-                }
+          } else {
+            return res.status(400).json({ message: "Something went wrong" });
+          }
+        });
+      },
+
+    
+
+        //   delete user
+        //   deleteUser:async(req,res)=>{
+        //     try{
+        //       const user = await USER.findByIdAndDelete(req.params.id)
+        //     res.json(user)
+        //     } catch (error) {
+        //       console.error(error.message);
+        //       res.status(500).send("server error");
+        //     }
+        // },
+        //         //update expert
+        //         updateUser:async(req,res)=>{
+        //             try {
+        //               const user = await USER.findByIdAndUpdate(
+        //                 req.params.id,
+        //                 req.body,
+        //                 { new: true }
+        //               );
+        //               res.json(user);
+        //             } catch (error) {
+        //               console.error(error.message);
+        //             }
+        //         }
     
 
 }
