@@ -1,0 +1,3 @@
+[submodule "front-juriApp"]
+	path = front-juriApp
+	url = https://github.com/mohamed-simplonenda/front-juriApp.git
